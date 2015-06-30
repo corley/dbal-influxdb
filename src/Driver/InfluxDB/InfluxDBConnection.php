@@ -18,8 +18,8 @@ class InfluxDBConnection implements Connection
         $options = new Options();
         $options->setHost($params["host"]);
         $options->setDatabase($params["dbname"]);
-        $options->setUsername($params["user"]);
-        $options->setPassword($params["password"]);
+        $options->setUsername($username);
+        $options->setPassword($password);
         $options->setPort($params["port"]);
 
         $adapter = new GuzzleAdapter($http, $options);

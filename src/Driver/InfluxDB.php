@@ -34,7 +34,7 @@ class InfluxDB implements Driver, ExceptionConverterDriver, VersionAwarePlatform
 
     public function getDatabase(Connection $conn)
     {
-
+        return $conn->getParams()["dbname"];
     }
 
     public function convertException($message, DriverException $exception)
