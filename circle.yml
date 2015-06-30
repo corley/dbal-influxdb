@@ -1,0 +1,12 @@
+machine:
+  timezone:
+    Europe/Rome
+  php:
+    version: 5.6.5
+
+test:
+  override:
+    - vendor/bin/phpunit --coverage-clover clover.xml
+  post:
+    - wget https://scrutinizer-ci.com/ocular.phar
+    - php ocular.phar code-coverage:upload --format=php-clover clover.xml
