@@ -108,7 +108,7 @@ class InfluxDBStatement implements IteratorAggregate, Statement
 
     public function fetchAll($fetchMode = null)
     {
-        return $this->getIterator();
+        return $this->results;
     }
 
     public function fetchColumn($columnIndex = 0)
