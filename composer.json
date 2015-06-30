@@ -1,0 +1,19 @@
+{
+  "require": {
+    "doctrine/dbal": "~2",
+    "corley/influxdb-sdk": "0.5.*"
+  },
+  "require-dev": {
+    "phpunit/phpunit": "~4"
+  },
+  "autoload": {
+    "psr-4": {
+      "Corley\\DBAL\\": "./src/"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Corley\\DBAL\\": "./tests/"
+    }
+  }
+}
