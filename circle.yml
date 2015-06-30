@@ -4,6 +4,10 @@ machine:
   php:
     version: 5.6.5
 
+dependencies:
+  pre:
+    - sed -i 's/^;//' ~/.phpenv/versions/$(phpenv global)/etc/conf.d/xdebug.ini
+
 test:
   override:
     - vendor/bin/phpunit --coverage-clover clover.xml
