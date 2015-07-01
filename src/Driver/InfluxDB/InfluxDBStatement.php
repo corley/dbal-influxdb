@@ -24,27 +24,27 @@ class InfluxDBStatement implements IteratorAggregate, Statement
         $this->statement = $statement;
     }
 
-    function bindValue($param, $value, $type = null)
+    public function bindValue($param, $value, $type = null)
     {
         $this->values[$param] = $value;
     }
 
-    function bindParam($column, &$variable, $type = null, $length = null)
+    public function bindParam($column, &$variable, $type = null, $length = null)
     {
         $this->values[$column] =& $variable;
     }
 
-    function errorCode()
+    public function errorCode()
     {
 
     }
 
-    function errorInfo()
+    public function errorInfo()
     {
 
     }
 
-    function execute($params = null)
+    public function execute($params = null)
     {
         $this->values = (is_array($params)) ? array_replace($this->values, $params) : $this->values;
 
@@ -69,7 +69,7 @@ class InfluxDBStatement implements IteratorAggregate, Statement
         return $return;
     }
 
-    function rowCount()
+    public function rowCount()
     {
         return count($this->results);
     }

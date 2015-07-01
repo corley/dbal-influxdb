@@ -42,12 +42,12 @@ class InfluxDBConnection implements Connection
         return $stmt;
     }
 
-    function quote($input, $type=\PDO::PARAM_STR)
+    public function quote($input, $type=\PDO::PARAM_STR)
     {
         return "'" . addslashes($input) . "'";
     }
 
-    function exec($statement)
+    public function exec($statement)
     {
         $stmt = $this->query($statement)->execute();
         if (false === $stmt) {
@@ -57,32 +57,32 @@ class InfluxDBConnection implements Connection
         return $stmt->rowCount();
     }
 
-    function lastInsertId($name = null)
+    public function lastInsertId($name = null)
     {
         throw new \RuntimeException("Unable to get last insert id in InfluxDB");
     }
 
-    function beginTransaction()
+    public function beginTransaction()
     {
         throw new \RuntimeException("Transactions are not allowed in InfluxDB");
     }
 
-    function commit()
+    public function commit()
     {
         throw new \RuntimeException("Transactions are not allowed in InfluxDB");
     }
 
-    function rollBack()
+    public function rollBack()
     {
         throw new \RuntimeException("Transactions are not allowed in InfluxDB");
     }
 
-    function errorCode()
+    public function errorCode()
     {
 
     }
 
-    function errorInfo()
+    public function errorInfo()
     {
 
     }
