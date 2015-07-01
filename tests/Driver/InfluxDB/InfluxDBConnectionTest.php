@@ -1,6 +1,8 @@
 <?php
 namespace Corley\DBAL\Driver\InfluxDB;
 
+use Prophecy\Argument;
+
 class InfluxDBConnectionTest extends \PHPUnit_Framework_TestCase
 {
     public function testConnectionManagerWithParams()
@@ -35,5 +37,33 @@ class InfluxDBConnectionTest extends \PHPUnit_Framework_TestCase
 
         $stmt = $conn->prepare("SELECT * FROM cpu");
         $this->assertInstanceOf("Corley\\DBAL\\Driver\\InfluxDB\\InfluxDBStatement", $stmt);
+    }
+
+    public function testDirectQuery()
+    {
+        $stmt = $this->prophesize("Corley\\DBAL\\Driver\\InfluxDB\\InfluxDBStatement");
+        $stmt->execute()->willReturn(true);
+
+        $mock = $this->getMockBuilder("Corley\\DBAL\\Driver\\InfluxDB\\InfluxDBConnection")
+            ->disableOriginalConstructor()
+            ->setMethods(["prepare"])
+            ->getMock();
+
+        $mock->expects($this->once())
+            ->method("prepare")
+            ->will($this->returnValue($stmt->reveal()));
+
+        $stmt = $mock->query("SELECT * FROM cpu");
+
+        $this->assertInstanceOf("Corley\\DBAL\\Driver\\InfluxDB\\InfluxDBStatement", $stmt);
+    }
+
+    public function testQuoteWithSingle()
+    {
+        $mock = $this->getMockBuilder("Corley\\DBAL\\Driver\\InfluxDB\\InfluxDBConnection")
+            ->disableOriginalConstructor()
+            ->getMockForAbstractClass();
+
+        $this->assertEquals("'OK'", $mock->quote("OK"));
     }
 }

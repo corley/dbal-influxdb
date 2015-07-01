@@ -27,43 +27,54 @@ class InfluxDBConnection implements Connection
         $this->client = new Client($adapter);
     }
 
-    function prepare($prepareString)
+    public function prepare($prepareString)
     {
         return new InfluxDBStatement($this->client, $prepareString);
     }
 
-    function query()
+    public function query()
     {
+        $args = func_get_args();
+        $sql = $args[0];
+        $stmt = $this->prepare($sql);
+        $stmt->execute();
 
+        return $stmt;
     }
 
     function quote($input, $type=\PDO::PARAM_STR)
     {
-
+        return "'" . addslashes($input) . "'";
     }
 
     function exec($statement)
     {
+        $stmt = $this->query($statement)->execute();
+        if (false === $stmt) {
+            throw new \RuntimeException("Unable to execute query '{$statement}'");
+        }
+
+        return $stmt->rowCount();
     }
 
     function lastInsertId($name = null)
     {
-
+        throw new \RuntimeException("Unable to get last insert id in InfluxDB");
     }
 
     function beginTransaction()
     {
-
+        throw new \RuntimeException("Transactions are not allowed in InfluxDB");
     }
 
     function commit()
     {
-
+        throw new \RuntimeException("Transactions are not allowed in InfluxDB");
     }
 
     function rollBack()
     {
-
+        throw new \RuntimeException("Transactions are not allowed in InfluxDB");
     }
 
     function errorCode()
