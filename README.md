@@ -1,6 +1,8 @@
 # Doctrine DBAL for InfluxDB
 
 [![Circle CI](https://circleci.com/gh/corley/dbal-influxdb/tree/master.svg?style=svg)](https://circleci.com/gh/corley/dbal-influxdb/tree/master)
+[![Code Coverage](https://scrutinizer-ci.com/g/corley/dbal-influxdb/badges/coverage.png?b=master)](https://scrutinizer-ci.com/g/corley/dbal-influxdb/?branch=master)
+[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/corley/dbal-influxdb/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/corley/dbal-influxdb/?branch=master)
 
 InfluxDB driver for Doctrine DBAL (Abstraction Layer)
 

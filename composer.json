@@ -1,5 +1,6 @@
 {
   "name": "corley/dbal-influxdb",
+  "license": "MIT",
   "require": {
     "doctrine/dbal": "~2",
     "corley/influxdb-sdk": "0.5.*"
