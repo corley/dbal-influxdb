@@ -24,4 +24,16 @@ class InfluxDBConnectionTest extends \PHPUnit_Framework_TestCase
 
         $this->assertEquals("mydb", $conn->getDatabase());
     }
+
+    public function testCreateAStatement()
+    {
+        $conn = new InfluxDBConnection([
+            "host" => "locahost",
+            "port" => 8086,
+            "dbname" => "mydb",
+        ], "root", "root", []);
+
+        $stmt = $conn->prepare("SELECT * FROM cpu");
+        $this->assertInstanceOf("Corley\\DBAL\\Driver\\InfluxDB\\InfluxDBStatement", $stmt);
+    }
 }
