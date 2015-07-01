@@ -1,4 +1,5 @@
 {
+  "name": "corley/dbal-influxdb",
   "require": {
     "doctrine/dbal": "~2",
     "corley/influxdb-sdk": "0.5.*"
