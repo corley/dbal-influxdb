@@ -1,3 +1,4 @@
 vendor
 t.php
 tags
+composer.lock
