@@ -49,8 +49,8 @@ class InfluxDBConnection implements Connection
 
     public function exec($statement)
     {
-        $stmt = $this->query($statement)->execute();
-        if (false === $stmt) {
+        $stmt = $this->query($statement);
+        if (false === $stmt->execute()) {
             throw new \RuntimeException("Unable to execute query '{$statement}'");
         }
 

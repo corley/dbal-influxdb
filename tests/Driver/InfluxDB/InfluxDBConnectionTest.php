@@ -66,4 +66,42 @@ class InfluxDBConnectionTest extends \PHPUnit_Framework_TestCase
 
         $this->assertEquals("'OK'", $mock->quote("OK"));
     }
+
+    public function testExecStatement()
+    {
+        $stmt = $this->prophesize("Corley\\DBAL\\Driver\\InfluxDB\InfluxDBStatement");
+        $stmt->execute()->willReturn(true);
+        $stmt->rowCount()->willReturn(5);
+
+        $mock = $this->getMockBuilder("Corley\\DBAL\\Driver\\InfluxDB\\InfluxDBConnection")
+            ->disableOriginalConstructor()
+            ->setMethods(["query"])
+            ->getMockForAbstractClass();
+
+        $mock->expects($this->once())
+            ->method("query")
+            ->will($this->returnValue($stmt->reveal()));
+
+        $this->assertEquals(5, $mock->exec("OK"));
+    }
+
+    /**
+     * @expectedException RuntimeException
+     */
+    public function testExecStatementWithError()
+    {
+        $stmt = $this->prophesize("Corley\\DBAL\\Driver\\InfluxDB\InfluxDBStatement");
+        $stmt->execute()->willReturn(false);
+
+        $mock = $this->getMockBuilder("Corley\\DBAL\\Driver\\InfluxDB\\InfluxDBConnection")
+            ->disableOriginalConstructor()
+            ->setMethods(["query"])
+            ->getMockForAbstractClass();
+
+        $mock->expects($this->once())
+            ->method("query")
+            ->will($this->returnValue($stmt->reveal()));
+
+        $mock->exec("OK");
+    }
 }
